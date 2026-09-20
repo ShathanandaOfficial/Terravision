@@ -1,0 +1,4 @@
+Phase,Train_Acc,Test_Acc
+Phase 1 (Tabular),1.0,0.8908227848101266
+Phase 2 (Satellite),0.5463182897862233,0.4588607594936709
+Phase 3 (Meta-Fusion),1.0,0.8829113924050633

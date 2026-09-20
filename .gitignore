@@ -1,0 +1,61 @@
+# ============================================================
+# TerraVision — Root .gitignore
+# ============================================================
+
+# Environment secrets — NEVER commit these
+.env
+.env.local
+.env.production
+frontend/.env
+frontend/.env.local
+
+# Python cache & bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# ============================================================
+# MODEL ZIP — Exclude unused/heavy model artifacts
+# Only the Phase 3 final artifacts are used by the backend.
+# ============================================================
+
+# Phase 1 raw training artifacts (NOT used by backend — 500MB+)
+Model Zip/Phase1_numericle_artifacts/
+
+# Phase 2 intermediate fusion artifacts (NOT used by backend)
+Model Zip/phase2_fusion_artifacts/
+
+# Phase 3 — exclude unused candidate models (only best_fusion is used)
+Model Zip/phase3_artifacts_v2.0/phase3_artifacts_v2.0/models/phase3_extratrees.pkl
+Model Zip/phase3_artifacts_v2.0/phase3_artifacts_v2.0/models/phase3_lightgbm.pkl
+Model Zip/phase3_artifacts_v2.0/phase3_artifacts_v2.0/models/phase3_randomforest.pkl
+Model Zip/phase3_artifacts_v2.0/phase3_artifacts_v2.0/models/phase3_voting_ensemble.pkl
+Model Zip/phase3_artifacts_v2.0/phase3_artifacts_v2.0/models/phase3_xgboost.pkl
+
+# Phase 3 Python cache
+Model Zip/phase3_artifacts_v2.0/phase3_artifacts_v2.0/__pycache__/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS
+.DS_Store
+Thumbs.db

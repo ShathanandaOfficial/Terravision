@@ -1,0 +1,313 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+@import "mapbox-gl/dist/mapbox-gl.css";
+@import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --font-heading: 'Space Grotesk', 'Inter', -apple-system, sans-serif;
+    --font-body: 'Inter', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #020408;
+    color: #f1f5f9;
+    font-family: var(--font-body);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+/* Atmospheric Cinematic Tech Background */
+.cinema-bg {
+  background-color: #020408;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.16) 0%, transparent 55%),
+    radial-gradient(circle at 85% 30%, rgba(29, 78, 216, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 10% 80%, rgba(220, 38, 38, 0.04) 0%, transparent 45%),
+    linear-gradient(rgba(30, 58, 138, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 58, 138, 0.04) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+  background-attachment: fixed;
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+  background: rgba(4, 8, 18, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(59, 130, 246, 0.18);
+  box-shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.75), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+  border-radius: 1.25rem;
+}
+
+.glass-card-hover {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-2px);
+  border-color: rgba(59, 130, 246, 0.45);
+  box-shadow: 0 15px 40px -5px rgba(0, 0, 0, 0.8), 0 0 20px rgba(59, 130, 246, 0.18);
+}
+
+.glass-card-glow {
+  border-color: rgba(59, 130, 246, 0.55);
+  box-shadow: 0 0 30px rgba(37, 99, 235, 0.22), inset 0 0 20px rgba(37, 99, 235, 0.08);
+}
+
+.glass-card-red {
+  background: rgba(18, 4, 8, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  box-shadow: 0 10px 30px -5px rgba(239, 68, 68, 0.15);
+  border-radius: 1.25rem;
+}
+
+/* Premium Buttons */
+.btn-blue-primary {
+  background: #3b82f6;
+  color: #020617;
+  font-weight: 700;
+  border-radius: 9999px;
+  padding: 0.75rem 1.75rem;
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.45), 0 4px 14px rgba(59, 130, 246, 0.3);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  letter-spacing: 0.03em;
+}
+
+.btn-blue-primary:hover {
+  background: #60a5fa;
+  box-shadow: 0 0 35px rgba(59, 130, 246, 0.65), 0 6px 20px rgba(59, 130, 246, 0.45);
+  transform: translateY(-1px) scale(1.01);
+}
+
+.btn-blue-primary:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.btn-glass-secondary {
+  background: rgba(8, 16, 32, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #f1f5f9;
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  border-radius: 9999px;
+  padding: 0.75rem 1.75rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  letter-spacing: 0.03em;
+}
+
+.btn-glass-secondary:hover {
+  background: rgba(30, 58, 138, 0.3);
+  border-color: rgba(59, 130, 246, 0.65);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Luminous Glow Effects */
+.glow-text-blue {
+  text-shadow: 0 0 16px rgba(59, 130, 246, 0.75), 0 0 32px rgba(37, 99, 235, 0.35);
+}
+
+.glow-text-red {
+  text-shadow: 0 0 14px rgba(239, 68, 68, 0.8), 0 0 28px rgba(185, 28, 28, 0.4);
+}
+
+.glow-border-blue {
+  box-shadow: 0 0 24px rgba(59, 130, 246, 0.45);
+}
+
+/* 3D Fluid Ribbon Animation */
+@keyframes fluid-orbit {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes scan-beam-sweep {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(1000%);
+    opacity: 0;
+  }
+}
+
+.animate-scan-sweep {
+  animation: scan-beam-sweep 3s ease-in-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.6);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.pulse-ring-red {
+  animation: pulse-ring 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.pulse-ring-blue {
+  animation: pulse-ring 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Custom Minimalist Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #020408;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e3a8a;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3b82f6;
+}
+
+/* Mapbox GL JS Overrides for Dark Futuristic Aesthetics */
+.mapboxgl-map {
+  background: #020408 !important;
+  font-family: var(--font-body) !important;
+}
+
+.mapboxgl-ctrl-group {
+  background: rgba(4, 8, 18, 0.88) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+  backdrop-filter: blur(12px) !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8) !important;
+}
+
+.mapboxgl-ctrl-group button {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.15) !important;
+}
+
+.mapboxgl-ctrl-group button:last-child {
+  border-bottom: none !important;
+}
+
+.mapboxgl-ctrl-group button:hover {
+  background: rgba(30, 58, 138, 0.4) !important;
+}
+
+.mapboxgl-ctrl-group button .mapboxgl-ctrl-icon {
+  filter: invert(1) brightness(1.2) hue-rotate(180deg) saturate(2);
+}
+
+.mapboxgl-popup-content {
+  background: rgba(4, 8, 18, 0.92) !important;
+  border: 1px solid rgba(59, 130, 246, 0.35) !important;
+  backdrop-filter: blur(14px) !important;
+  border-radius: 14px !important;
+  color: #f1f5f9 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
+  padding: 12px 16px !important;
+}
+
+.mapboxgl-popup-tip {
+  border-top-color: rgba(4, 8, 18, 0.92) !important;
+}
+
+/* Custom Marker CSS */
+.custom-pin-red {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-pin-red .dot {
+  width: 12px;
+  height: 12px;
+  background: #ef4444;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 14px #ef4444, 0 0 28px rgba(239, 68, 68, 0.8);
+  position: relative;
+  z-index: 2;
+}
+
+.custom-pin-red .halo {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border: 2px solid #ef4444;
+  border-radius: 50%;
+  animation: pulse-ring 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Leaflet Container & Handle Overrides */
+.leaflet-container {
+  background: #020408 !important;
+  font-family: var(--font-body) !important;
+}
+
+.vertex-handle-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.vertex-handle-marker {
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border: 3px solid #3b82f6;
+  border-radius: 50%;
+  box-shadow: 0 0 12px #3b82f6, 0 0 20px rgba(59, 130, 246, 0.6);
+  cursor: grab;
+  transition: transform 0.15s ease;
+}
+
+.vertex-handle-marker:hover {
+  transform: scale(1.3);
+  border-color: #60a5fa;
+  box-shadow: 0 0 16px #60a5fa, 0 0 25px rgba(96, 165, 250, 0.8);
+}
+
+.vertex-handle-marker:active {
+  cursor: grabbing;
+}
+
